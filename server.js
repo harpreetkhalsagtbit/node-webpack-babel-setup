@@ -20,21 +20,15 @@ app.listen(PORT, () => {
     console.log(`App listening to ${PORT}....`)
     console.log('Press Ctrl+C to quit.')
 })
-app.get('*', (req, res, next) => {
+app.get('*', async (req, res, next) => {
+  const data = await readFileAsync('./server.js', 'utf-8')
   res.json({
-    "hello":"world"
+    "hello":"world",
+    data
   })
 })
 
-// const fs = require('fs')
-// const { promisify } = require('util')
+const fs = require('fs')
+const { promisify } = require('util')
 
-// const readFileAsync = promisify(fs.readFile)
-
-// const run = async () => {
-//   const res = await readFileAsync('./server.js', 'utf-8')
-//   console.log(res)
-// }
-
-console.log("here.......................")
-// run()
+const readFileAsync = promisify(fs.readFile)
